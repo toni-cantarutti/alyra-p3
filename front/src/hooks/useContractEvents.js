@@ -16,7 +16,6 @@ export const useContractEventsStore = create((set) => ({
          });
          logs.push(...eventLogs);
       }
-      console.log("refreshEvents");
 
       // Get timestamps for each block
       const eventsWithTimestamp = await Promise.all(
