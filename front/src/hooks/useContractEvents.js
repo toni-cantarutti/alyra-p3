@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { publicClient } from "@/utils/viemClient";
-import { CONTRACT_ADDRESS, CONTRACT_ABI } from "@/utils/contractInfo";
+import { CONTRACT_ADDRESS, CONTRACT_ABI, CONTRACT_BLOCKNUMBER } from "@/utils/contractInfo";
 
 // Create Zustand store
 export const useContractEventsStore = create((set) => ({
@@ -12,7 +12,7 @@ export const useContractEventsStore = create((set) => ({
          const eventLogs = await publicClient.getLogs({
             address: CONTRACT_ADDRESS,
             event: CONTRACT_ABI.find(item => item.name === eventName),
-            fromBlock: 0n,
+            fromBlock: BigInt(CONTRACT_BLOCKNUMBER),
          });
          logs.push(...eventLogs);
       }
