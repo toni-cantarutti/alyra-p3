@@ -25,13 +25,13 @@ const ContractManagement = () => {
       refetchVoter();
       refetchState();
       refetchWinner();
+      refetchWinnerProposal();
    }
-   console.log(winnerProposal);
 
    return (
       <>
          <p className="pt-4 pb-4 text-2xl font-bold mt-4 border-t-2 border-black-200">
-            Contract State: {getStateDescription(state)} {(state === 5) && `=> Winner Proposal:[${winnerId}]${winnerProposal.description}`}
+            Contract State: {getStateDescription(state)} {(state === 5) && `=> Winner Proposal:[${winnerId}]${winnerProposal?.description ?? "!Only voters can see proposal!"}`}
          </p >
          <p className="pt-4 text-2xl font-bold border-t-2 border-black-200">User Section</p>
          <p className="text-lg">

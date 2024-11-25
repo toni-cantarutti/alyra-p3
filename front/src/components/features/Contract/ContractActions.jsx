@@ -27,18 +27,18 @@ const ContractActions = ({ isOwner, isVoter, currentState, refetchAll }) => {
 
 
    useEffect(() => {
+      if (hash)
+         toast(`Transaction pending ${hash}`, {
+            position: 'top-center',
+         });
+   }, [hash]);
+
+   useEffect(() => {
       if (txIsLoading)
          toast("Waiting for confirmation...", {
             position: 'top-center',
          });
    }, [txIsLoading]);
-
-   useEffect(() => {
-      if (hash)
-         toast(`Transaction confirmed: ${hash}`, {
-            position: 'top-center',
-         });
-   }, [hash]);
 
    useEffect(() => {
       if (txIsSuccess) {
@@ -143,7 +143,6 @@ const ContractActions = ({ isOwner, isVoter, currentState, refetchAll }) => {
                      <Button
                         onClick={async () => {
                            await caller("endProposalsRegistering");
-                           refetchRights();
                         }}
                         className="w-[608px]"
                      >
@@ -163,7 +162,6 @@ const ContractActions = ({ isOwner, isVoter, currentState, refetchAll }) => {
                      <Button
                         onClick={async () => {
                            await caller("startVotingSession");
-                           refetchRights();
                         }}
                         className="w-[608px]"
                      >
@@ -209,7 +207,6 @@ const ContractActions = ({ isOwner, isVoter, currentState, refetchAll }) => {
                      <Button
                         onClick={async () => {
                            await caller("endVotingSession");
-                           refetchRights();
                         }}
                         className="w-[608px]"
                      >
@@ -229,7 +226,6 @@ const ContractActions = ({ isOwner, isVoter, currentState, refetchAll }) => {
                      <Button
                         onClick={async () => {
                            await caller("tallyVotes");
-                           refetchRights();
                         }}
                         className="w-[608px]"
                      >
