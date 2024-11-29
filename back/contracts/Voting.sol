@@ -1,7 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.28;
+
 import "@openzeppelin/contracts/access/Ownable.sol";
 
+/**
+ * @dev Shitty Voting Contract poorly implemented.
+ * @author @Alyra
+ */
 contract Voting is Ownable {
     uint public winningProposalID;
 
@@ -61,7 +66,10 @@ contract Voting is Ownable {
     }
 
     // ::::::::::::: REGISTRATION ::::::::::::: //
-
+    /**
+     * @dev Add voter to the contract.
+     * @param _addr The address of the voter to add.
+     */
     function addVoter(address _addr) external onlyOwner {
         require(
             workflowStatus == WorkflowStatus.RegisteringVoters,
@@ -165,6 +173,13 @@ contract Voting is Ownable {
         );
     }
 
+    /**
+     * @dev Tally the votes
+     * @notice WARNING: This function contains an unbounded loop that could hit the gas limit
+     * if the proposals array becomes too large. This is a potential DOS (Denial of Service) vulnerability.
+     * Consider implementing a limit on the number of proposals or using a different tallying mechanism
+     * for large-scale voting.
+     */
     function tallyVotes() external onlyOwner {
         require(
             workflowStatus == WorkflowStatus.VotingSessionEnded,
